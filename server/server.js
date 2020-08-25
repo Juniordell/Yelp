@@ -32,14 +32,13 @@ app.get('/api/v1/restaurants', async (req, res) => {
 })
 
 app.get('/api/v1/restaurants/:id', async (req, res) => {
-    console.log(req.params);
 
     try {
         const results = await db.query(' select * from restaurants where id = $1', [req.params.id])
         res.status(200).json({
             status: 'success',
             data: {
-                restaurants: results.rows[0]
+                restaurant: results.rows[0]
             },
         })
     } catch(err) {
@@ -56,8 +55,6 @@ app.post('/api/v1/restaurants', async (req, res) => {
             req.body.location,
             req.body.price_range
         ])
-
-        console.log(results)
     
         res.status(201).json({
             status: 'success',
@@ -80,8 +77,6 @@ app.put('/api/v1/restaurants/:id', async (req, res) => {
             req.body.price_range,
             req.params.id
         ])
-
-        console.log(results)
     
         res.status(200).json({
             status: 'success',
